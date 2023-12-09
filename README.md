@@ -3,7 +3,8 @@
 PMAPPで使用するAPIです。
 
 # 環境構築
-## 1. NestJSのインストール
-```
-npm install -g @nestjs/cli
-```
+## 1. 使用パッケージ
+・fastapi
+・uvicorn
+・sqlalchemy
+・strawberry-graphql
