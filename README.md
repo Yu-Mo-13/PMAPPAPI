@@ -7,4 +7,6 @@ PMAPPで使用するAPIです。
 ・fastapi
 ・uvicorn
 ・sqlalchemy
-・strawberry-graphql
+・aiomysql
+・pydantic
+・datetime
