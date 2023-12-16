@@ -10,3 +10,6 @@ PMAPPで使用するAPIです。
 ・aiomysql
 ・pydantic
 ・datetime
+
+# アプリケーション起動
+uvicorn main:app --reload
