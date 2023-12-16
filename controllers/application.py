@@ -13,3 +13,12 @@ async def get_all_application(db: AsyncSession) -> List[Tuple[int, str, str, str
         application_model.registered_date
     ))
     return result.all()
+
+async def get_accountclass(db: AsyncSession, app: str) -> List[Tuple[int, str, str, str]]:
+    result: Result = await db.execute(select(
+        application_model.no,
+        application_model.name,
+        application_model.accountClas,
+        application_model.registered_date
+    ).filter(application_model.name == app))
+    return result.first()
