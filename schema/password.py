@@ -8,5 +8,5 @@ class Password(BaseModel):
     app: Optional[str] = Field(None, title="Application name")
     email_address: Optional[str] = Field(None, title="Email address")
     other_info: Optional[str] = Field(None, title="Other information")
-    firestoreRegFlg: Optional[str] = Field(None, title="Firestore registration flag")
+    firestoreregflg: Optional[str] = Field(None, title="Firestore registration flag")
     registered_date: Optional[DateTime] = Field(None, title="Registered date")

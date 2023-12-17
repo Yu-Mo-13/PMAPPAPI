@@ -11,5 +11,5 @@ class Password(Base):
     app = Column(String(200), index=True)
     email_address = Column(String(100), index=True)
     other_info = Column(String(100), index=True)
-    firestoreRegFlg = Column(String(1), index=True)
+    firestoreregflg = Column(String(1), index=True)
     registered_date = Column(DateTime, default=datetime.now)
