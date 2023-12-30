@@ -4,6 +4,7 @@ from sqlalchemy import select
 from sqlalchemy.engine import Result
 from sqlalchemy.ext.asyncio import AsyncSession
 from models.password import Password as password_model
+from sqlalchemy import distinct
 
 async def get_all_password(db: AsyncSession) -> List[Tuple[int, str, str, str]]:
     result: Result = await db.execute(select(
