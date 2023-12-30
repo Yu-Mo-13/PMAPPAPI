@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from routers.application import router as application_router
 from routers.password import router as password_router
+from routers.account import router as account_router
 from starlette.middleware.cors import CORSMiddleware
 # from stargql import GraphQL
 
@@ -29,3 +30,4 @@ async def root():
 
 app.include_router(application_router)
 app.include_router(password_router)
+app.include_router(account_router)
