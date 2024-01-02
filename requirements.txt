@@ -5,3 +5,4 @@ aiomysql
 pydantic
 datetime
 asyncpg
+datetime
