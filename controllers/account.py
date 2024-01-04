@@ -6,6 +6,18 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from models.account import Account as account_model
 from datetime import datetime
 
+# モバイルにてアプリ名をキーにアカウント一覧を取得する際に使用
+async def get_all_account_by_appname(db: AsyncSession, app: str) -> List[Tuple[int, str, str, str, datetime, datetime]]:
+    result: Result = await db.execute(select(
+        account_model.id,
+        account_model.account,
+        account_model.app,
+        account_model.deleteflg,
+        account_model.created_at,
+        account_model.updated_at
+    ).filter(account_model.app == app).filter(account_model.deleteflg == '0'))
+    return result.all()
+
 # アカウントマスター一覧画面で使用
 async def get_all_account(db: AsyncSession) -> List[Tuple[int, str, str, str, datetime, datetime]]:
     result: Result = await db.execute(select(
