@@ -16,6 +16,10 @@ created_at = datetime.datetime.now()
 async def get_all_account(db: AsyncSession = Depends(get_db)):
     return await account_controller.get_all_account(db)
 
+@router.get("/account/app={app}", response_model=List[account_schema.Account])
+async def get_all_account_by_appname(app: str, db: AsyncSession = Depends(get_db)):
+    return await account_controller.get_all_account_by_appname(db, app)
+
 @router.get("/account/app={app}/account={account}", response_model=account_schema.Account)
 async def get_account(account: str, app: str, db: AsyncSession = Depends(get_db)):
     return await account_controller.get_account(db, account, app)
