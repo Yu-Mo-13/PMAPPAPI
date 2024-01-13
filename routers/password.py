@@ -19,3 +19,8 @@ async def get_password_no_account(appname: str, db: AsyncSession = Depends(get_d
 @router.get("/password/app={appname}/account={account}", response_model=password_schema.Password)
 async def get_password(appname: str, account: str, db: AsyncSession = Depends(get_db)):
     return await password_controller.get_password(db, appname, account)
+
+# issue10 データ連動
+@router.post("/password/create", response_model=password_schema.Password)
+async def create_password(password: password_schema.Password, db: AsyncSession = Depends(get_db)):
+    return await password_controller.create_password(db, password)

@@ -15,3 +15,8 @@ async def get_all_application(db: AsyncSession = Depends(get_db)):
 @router.get("/application/app={app}", response_model=application_schema.Application)
 async def get_accountclass(app: str, db: AsyncSession = Depends(get_db)):
     return await application_controller.get_accountclass(db, app)
+
+# issue10 データ連動
+@router.post("/application/create", response_model=application_schema.Application)
+async def create_application(application: application_schema.Application, db: AsyncSession = Depends(get_db)):
+    return await application_controller.create_application(db, application)
