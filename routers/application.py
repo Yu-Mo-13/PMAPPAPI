@@ -20,5 +20,5 @@ async def get_accountclass(app: str, db: AsyncSession = Depends(get_db)):
 
 # issue10 データ連動
 @router.post("/application/create", response_model=application_schema.Application)
-async def create_application(no: int, name: str, accountclass: str, registered_date: datetime, db: AsyncSession = Depends(get_db)):
+async def create_application(no: int, name: str, accountclass: str, registered_date: str, db: AsyncSession = Depends(get_db)):
     return await application_controller.create_application(db, no, name, accountclass, registered_date)

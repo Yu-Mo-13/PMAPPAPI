@@ -28,7 +28,7 @@ async def get_accountclass(db: AsyncSession, app: str) -> List[Tuple[int, str, s
 # issue10 データ連動
 # no, name, accountclasを登録する
 # registered_dateに現在の日付を設定する
-async def create_application(db: AsyncSession, no: int , name: str, accountclas: str) -> List[Tuple[int, str, str, datetime.datetime]]:
+async def create_application(db: AsyncSession, no: int , name: str, accountclas: str) -> List[Tuple[int, str, str, str]]:
     result = await db.execute(insert(application_model).values(no=no, name=name, accountclas=accountclas, registered_date=datetime.datetime.now()))
     await db.commit()
     return result
