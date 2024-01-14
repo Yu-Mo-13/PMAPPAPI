@@ -46,7 +46,7 @@ async def get_password(db: AsyncSession, appname: str, account: str) -> List[Tup
 # issue10 データ連動
 # no, pwd, app, email_address, other_info, firestoreregflgを登録する
 # registered_dateに現在の日付を設定する
-async def create_password(db: AsyncSession, no: int , pwd: str, app: str, email_address: str, other_info: str, firestoreregflg: str, registered_date: datetime) -> List[Tuple[int, str, str, str]]:
+async def create_password(db: AsyncSession, no: int , pwd: str, app: str, email_address: str, other_info: str, firestoreregflg: str, registered_date: datetime) -> List[Tuple[int, str, str, str, str, str, datetime.datetime]]:
     result = await db.execute(insert(password_model).values(no=no, pwd=pwd, app=app, email_address=email_address, other_info=other_info, firestoreregflg=firestoreregflg, registered_date=registered_date))
     await db.commit()
     return result
