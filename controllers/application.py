@@ -5,6 +5,8 @@ from sqlalchemy.engine import Result
 from sqlalchemy.ext.asyncio import AsyncSession
 from models.application import Application as application_model
 
+import datetime
+
 async def get_all_application(db: AsyncSession) -> List[Tuple[int, str, str, str]]:
     result: Result = await db.execute(select(
         application_model.no,
@@ -26,7 +28,7 @@ async def get_accountclass(db: AsyncSession, app: str) -> List[Tuple[int, str, s
 # issue10 データ連動
 # no, name, accountclasを登録する
 # registered_dateに現在の日付を設定する
-async def create_application(db: AsyncSession, no: int , name: str, accountclas: str, registered_date: str) -> List[Tuple[int, str, str, str]]:
+async def create_application(db: AsyncSession, no: int , name: str, accountclas: str, registered_date: datetime) -> List[Tuple[int, str, str, str]]:
     result = await db.execute(insert(application_model).values(no=no, name=name, accountclas=accountclas, registered_date=registered_date))
     await db.commit()
     return result
