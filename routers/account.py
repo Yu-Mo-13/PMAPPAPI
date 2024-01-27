@@ -9,7 +9,7 @@ import schema.account as account_schema
 import controllers.account as account_controller
 
 router = APIRouter()
-# created_at = datetime.datetime.now().strftime('%Y-%m-%d')
+
 created_at = datetime.datetime.now()
 
 @router.get("/account/", response_model=List[account_schema.Account])
