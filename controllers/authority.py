@@ -26,7 +26,7 @@ async def get_authority(db: AsyncSession, cd: int) -> Tuple[int, str, str, str, 
         authority_model.deleteflg,
         authority_model.created_at,
         authority_model.updated_at
-    ).filter(authority_model.cd == cd, authority_model.deleteflg == get_config("GENERAL", "ISACTIVE")))
+    ).filter(authority_model.cd == cd))
     return result.first()
 
 # 権限マスタにデータを登録する

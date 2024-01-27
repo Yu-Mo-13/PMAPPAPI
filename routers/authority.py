@@ -21,6 +21,7 @@ async def get_all_authority(db: AsyncSession = Depends(get_db)):
 async def get_authority(cd: int, db: AsyncSession = Depends(get_db)):
     return await authority_controller.get_authority(db, cd)
 
+# 権限データを登録する
 @router.post("/authority/create/name={name}&adminflg={adminflg}", response_model=authority_schema.Authority)
 async def create_authority(name: str, adminflg: str, db: AsyncSession = Depends(get_db)):
     return await authority_controller.create_authority(db, name, adminflg, str(get_config("GENERAL", "ISACTIVE")))
