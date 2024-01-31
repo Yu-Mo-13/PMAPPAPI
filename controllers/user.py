@@ -33,6 +33,20 @@ async def get_user(db: AsyncSession, id: int) -> Tuple[int, str, str, str, str, 
     ).filter(user_model.id == id))
     return result.first()
 
+# ログインで使用する
+async def get_user_by_engname_password(db: AsyncSession, engname: str, password: str) -> Tuple[int, str, str, str, str, datetime.datetime, datetime.datetime]:
+    result: Result = await db.execute(select(
+        user_model.id,
+        user_model.engname,
+        user_model.jpnname,
+        user_model.password,
+        user_model.authcd,
+        user_model.deleteflg,
+        user_model.created_at,
+        user_model.updated_at
+    ).filter(user_model.engname == engname).filter(user_model.password == password))
+    return result.first()
+
 # ユーザマスタにデータを登録する
 async def create_user(db: AsyncSession, engname: str, jpnname: str, password: str, authcd: str, deleteflg: str) -> Any:
     result = await db.execute(insert(user_model).values(engname=engname, jpnname=jpnname, password=password, authcd=authcd, deleteflg=deleteflg, created_at=datetime.datetime.now(), updated_at=datetime.datetime.now()))
