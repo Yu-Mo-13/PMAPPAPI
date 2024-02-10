@@ -26,8 +26,8 @@ async def get_account(account: str, app: str, db: AsyncSession = Depends(get_db)
 
 @router.post("/account/create/app={app}/account={account}", response_model=account_schema.Account)
 async def insert_account(account: str, app: str, db: AsyncSession = Depends(get_db)):
-    return await account_controller.create_account(db, account, app, str(get_config("GENERAL", "ISACTIVE")), created_at)
+    return await account_controller.create_account(db, account, app, str(get_config("ISACTIVE")), created_at)
 
 @router.post("/account/delete/app={app}/account={account}", response_model=account_schema.Account)
 async def delete_account(account: str, app: str, db: AsyncSession = Depends(get_db)):
-    return await account_controller.delete_account(db, account, app, str(get_config("GENERAL", "ISDELETE")), created_at)
+    return await account_controller.delete_account(db, account, app, str(get_config("ISDELETE")), created_at)

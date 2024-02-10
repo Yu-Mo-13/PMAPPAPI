@@ -5,6 +5,7 @@ from sqlalchemy.engine import Result
 from sqlalchemy.ext.asyncio import AsyncSession
 from models.account import Account as account_model
 from datetime import datetime
+from config import get_config
 
 # モバイルにてアプリ名をキーにアカウント一覧を取得する際に使用
 async def get_all_account_by_appname(db: AsyncSession, app: str) -> List[Tuple[int, str, str, str, datetime, datetime]]:
@@ -15,7 +16,7 @@ async def get_all_account_by_appname(db: AsyncSession, app: str) -> List[Tuple[i
         account_model.deleteflg,
         account_model.created_at,
         account_model.updated_at
-    ).filter(account_model.app == app).filter(account_model.deleteflg == '0'))
+    ).filter(account_model.app == app).filter(account_model.deleteflg == get_config("ISACTIVE")))
     return result.all()
 
 # アカウントマスター一覧画面で使用
@@ -27,7 +28,7 @@ async def get_all_account(db: AsyncSession) -> List[Tuple[int, str, str, str, da
         account_model.deleteflg,
         account_model.created_at,
         account_model.updated_at
-    ).filter(account_model.deleteflg == '0'))
+    ).filter(account_model.deleteflg == get_config("ISACTIVE")))
     return result.all()
 
 # アカウントマスター詳細画面で使用
@@ -66,4 +67,4 @@ async def delete_account(db: AsyncSession, account: str, app: str, deleteflg: st
     account_record = result.first()
     await db.execute(update(account_model).where(account_model.id == account_record.id).values(deleteflg=deleteflg, updated_at=updated_at))
     await db.commit()
-    return await db.execute(select(account_model).filter(account_model.id == account_record.id)).first()
+    return await result
