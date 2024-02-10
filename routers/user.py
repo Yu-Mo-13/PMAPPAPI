@@ -28,7 +28,7 @@ async def get_user_by_engname_password(engname: str, password: str, db: AsyncSes
 # ユーザマスタにデータを登録する
 @router.post("/user/create/engname={engname}&jpnname={jpnname}&password={password}&authcd={authcd}", response_model=user_schema.User)
 async def create_user(engname: str, jpnname: str, password: str, authcd: str, db: AsyncSession = Depends(get_db)):
-    return await user_controller.create_user(db, engname, jpnname, password, authcd, str(get_config("GENERAL", "ISACTIVE")))
+    return await user_controller.create_user(db, engname, jpnname, password, authcd, str(get_config("ISACTIVE")))
 
 # ユーザマスタのデータを更新する
 @router.post("/user/update/id={id}&engname={engname}&jpnname={jpnname}&password={password}&authcd={authcd}", response_model=user_schema.User)
@@ -38,4 +38,4 @@ async def update_user(id: int, engname: str, jpnname: str, password: str, authcd
 # ユーザマスタのデータを削除する
 @router.post("/user/delete/id={id}", response_model=user_schema.User)
 async def delete_user(id: int, db: AsyncSession = Depends(get_db)):
-    return await user_controller.delete_user(db, id, str(get_config("GENERAL", "ISDELETE")))
+    return await user_controller.delete_user(db, id, str(get_config("ISDELETE")))

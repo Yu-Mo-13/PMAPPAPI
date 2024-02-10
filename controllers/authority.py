@@ -15,7 +15,7 @@ async def get_all_authority(db: AsyncSession) -> List[Tuple[int, str, str, str, 
         authority_model.deleteflg,
         authority_model.created_at,
         authority_model.updated_at
-    ).order_by(authority_model.cd).filter(authority_model.deleteflg == get_config("GENERAL", "ISACTIVE")))
+    ).order_by(authority_model.cd).filter(authority_model.deleteflg == get_config("ISACTIVE")))
     return result.all()
 
 async def get_authority(db: AsyncSession, cd: int) -> Tuple[int, str, str, str, datetime.datetime, datetime.datetime]:

@@ -17,7 +17,7 @@ async def get_all_user(db: AsyncSession) -> List[Tuple[int, str, str, str, datet
         user_model.deleteflg,
         user_model.created_at,
         user_model.updated_at
-    ).order_by(user_model.id).filter(user_model.deleteflg == get_config("GENERAL", "ISACTIVE")))
+    ).order_by(user_model.id).filter(user_model.deleteflg == get_config("ISACTIVE")))
     return result.all()
 
 async def get_user(db: AsyncSession, id: int) -> Tuple[int, str, str, str, str, datetime.datetime, datetime.datetime]:
