@@ -16,6 +16,16 @@ async def get_all_application(db: AsyncSession) -> List[Tuple[int, str, str, str
     ))
     return result.all()
 
+# issue18 デスクトップアプリ版API移行
+async def get_application(db: AsyncSession, app: str) -> List[Tuple[int, str, str, str]]:
+    result: Result = await db.execute(select(
+        application_model.no,
+        application_model.name,
+        application_model.accountclas,
+        application_model.registered_date
+    ).order_by(application_model.no.desc()).filter(application_model.name == app))
+    return result.first()
+
 async def get_accountclass(db: AsyncSession, app: str) -> List[Tuple[int, str, str, str]]:
     result: Result = await db.execute(select(
         application_model.no,
@@ -28,8 +38,8 @@ async def get_accountclass(db: AsyncSession, app: str) -> List[Tuple[int, str, s
 # issue10 データ連動
 # no, name, accountclasを登録する
 # registered_dateに現在の日付を設定する
-async def create_application(db: AsyncSession, no: int , name: str, accountclas: str) -> Any:
-    result = await db.execute(insert(application_model).values(no=no, name=name, accountclas=accountclas, registered_date=datetime.datetime.now()))
+async def create_application(db: AsyncSession, name: str, accountclas: str) -> Any:
+    result = await db.execute(insert(application_model).values(name=name, accountclas=accountclas, registered_date=datetime.datetime.now()))
     await db.commit()
     return result
 
