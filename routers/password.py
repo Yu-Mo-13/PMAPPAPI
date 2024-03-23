@@ -24,5 +24,5 @@ async def get_password(appname: str, account: str, db: AsyncSession = Depends(ge
 
 # issue10 データ連動
 @router.post("/password/create", response_model=password_schema.Password)
-async def create_password(no: int, pwd: str, app: str, email_address: str, other_info: str, firestoreregflg: str, db: AsyncSession = Depends(get_db)):
-    return await password_controller.create_password(db, no, pwd, app, email_address, other_info, firestoreregflg)
+async def create_password(pwd: str, app: str, other_info: str, db: AsyncSession = Depends(get_db)):
+    return await password_controller.create_password(db, pwd, app, other_info)
