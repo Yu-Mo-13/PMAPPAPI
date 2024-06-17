@@ -48,10 +48,10 @@ async def create_application(db: AsyncSession, name: str, accountclas: str, noti
 
 # issue18 デスクトップアプリ版API移行
 # accountclasを更新する
-async def update_application(db: AsyncSession, no: int, accountclas: str, noticeclass: str) -> Any:
+async def update_application(db: AsyncSession, no: int, accountclas: str, noticeclas: str) -> Any:
     result = await db.execute(
         update(application_model)
-            .values(accountclas=accountclas, noticeclass=noticeclass)
+            .values(accountclas=accountclas, noticeclas=noticeclas)
             .where(application_model.no == no)
         )
     await db.commit()
