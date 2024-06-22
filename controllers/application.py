@@ -12,6 +12,7 @@ async def get_all_application(db: AsyncSession) -> List[Tuple[int, str, str, str
         application_model.no,
         application_model.name,
         application_model.accountclas,
+        application_model.noticeclas,
         application_model.registered_date
     ))
     return result.all()
@@ -22,6 +23,7 @@ async def get_application(db: AsyncSession, app: str) -> List[Tuple[int, str, st
         application_model.no,
         application_model.name,
         application_model.accountclas,
+        application_model.noticeclas,
         application_model.registered_date
     ).order_by(application_model.no.desc()).filter(application_model.name == app))
     return result.first()
@@ -31,6 +33,7 @@ async def get_accountclass(db: AsyncSession, app: str) -> List[Tuple[int, str, s
         application_model.no,
         application_model.name,
         application_model.accountclas,
+        application_model.noticeclas,
         application_model.registered_date
     ).filter(application_model.name == app))
     return result.first()
