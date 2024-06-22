@@ -38,14 +38,21 @@ async def get_accountclass(db: AsyncSession, app: str) -> List[Tuple[int, str, s
 # issue10 データ連動
 # no, name, accountclasを登録する
 # registered_dateに現在の日付を設定する
-async def create_application(db: AsyncSession, name: str, accountclas: str) -> Any:
-    result = await db.execute(insert(application_model).values(name=name, accountclas=accountclas, registered_date=datetime.datetime.now()))
+async def create_application(db: AsyncSession, name: str, accountclas: str, noticeclas: str) -> Any:
+    result = await db.execute(
+        insert(application_model)
+            .values(name=name, accountclas=accountclas, noticeclas=noticeclas, registered_date=datetime.datetime.now())
+        )
     await db.commit()
     return result
 
 # issue18 デスクトップアプリ版API移行
 # accountclasを更新する
-async def update_application(db: AsyncSession, no: int, accountclas: str) -> Any:
-    result = await db.execute(update(application_model).values(accountclas=accountclas).where(application_model.no == no))
+async def update_application(db: AsyncSession, no: int, accountclas: str, noticeclas: str) -> Any:
+    result = await db.execute(
+        update(application_model)
+            .values(accountclas=accountclas, noticeclas=noticeclas)
+            .where(application_model.no == no)
+        )
     await db.commit()
     return result

@@ -23,10 +23,10 @@ async def get_accountclass(app: str, db: AsyncSession = Depends(get_db)):
 
 # issue10 データ連動
 @router.post("/application/create", response_model=application_schema.Application)
-async def create_application(name: str, accountclass: str, db: AsyncSession = Depends(get_db)):
-    return await application_controller.create_application(db, name, accountclass)
+async def create_application(name: str, accountclass: str, noticeclass: str, db: AsyncSession = Depends(get_db)):
+    return await application_controller.create_application(db, name, accountclass, noticeclass)
 
 # issue18 デスクトップアプリ版API移行
 @router.post("/application/update", response_model=application_schema.Application)
-async def update_application(no: int, accountclass: str, db: AsyncSession = Depends(get_db)):
-    return await application_controller.update_application(db, no, accountclass)
+async def update_application(no: int, accountclass: str, noticeclass: str, db: AsyncSession = Depends(get_db)):
+    return await application_controller.update_application(db, no, accountclass, noticeclass)

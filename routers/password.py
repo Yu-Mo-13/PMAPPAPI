@@ -22,6 +22,11 @@ async def get_password_no_account(appname: str, db: AsyncSession = Depends(get_d
 async def get_password(appname: str, account: str, db: AsyncSession = Depends(get_db)):
     return await password_controller.get_password(db, appname, account)
 
+# issue21 パスワード変更促進
+@router.get("/password/notice", response_model=List[password_schema.Password])
+async def get_notice_passwordlist(db: AsyncSession = Depends(get_db)):
+    return await password_controller.get_notice_passwordlist(db)
+
 # issue10 データ連動
 @router.post("/password/create", response_model=password_schema.Password)
 async def create_password(pwd: str, app: str, other_info: str, db: AsyncSession = Depends(get_db)):
