@@ -21,12 +21,18 @@ async def get_application(app: str, db: AsyncSession = Depends(get_db)):
 async def get_accountclass(app: str, db: AsyncSession = Depends(get_db)):
     return await application_controller.get_accountclass(db, app)
 
+# 次世代PMAPP
+# noticeclas=1のデータを取得する
+@router.get("/application/notice/", response_model=List[application_schema.Application])
+async def get_notice_app_list(db: AsyncSession = Depends(get_db)):
+    return await application_controller.get_notice_app_list(db)
+
 # issue10 データ連動
 @router.post("/application/create", response_model=application_schema.Application)
-async def create_application(name: str, accountclass: str, noticeclass: str, db: AsyncSession = Depends(get_db)):
-    return await application_controller.create_application(db, name, accountclass, noticeclass)
+async def create_application(name: str, accountclass: str, noticeclass: str, markclas: str, autosize: str, db: AsyncSession = Depends(get_db)):
+    return await application_controller.create_application(db, name, accountclass, noticeclass, markclas, autosize)
 
 # issue18 デスクトップアプリ版API移行
 @router.post("/application/update", response_model=application_schema.Application)
-async def update_application(no: int, accountclass: str, noticeclass: str, db: AsyncSession = Depends(get_db)):
-    return await application_controller.update_application(db, no, accountclass, noticeclass)
+async def update_application(no: int, accountclass: str, noticeclass: str, markclas: str, autosize: str, db: AsyncSession = Depends(get_db)):
+    return await application_controller.update_application(db, no, accountclass, noticeclass, markclas, autosize)
