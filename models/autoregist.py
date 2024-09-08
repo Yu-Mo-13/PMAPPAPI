@@ -3,9 +3,10 @@ from datetime import datetime
 
 from database.database import Base
 
-class PasswordWk(Base):
-    __tablename__ = "passwordwk"
-    no = Column(Integer, primary_key=True, index=True, autoincrement=True)
+class Autoregist(Base):
+    __tablename__ = "autoregist"
+    # uuid
+    uuid = Column(String(36), primary_key=True, index=True)
     pwd = Column(String(200), index=True)
     app = Column(String(200), index=True)
     other_info = Column(String(100), index=True)

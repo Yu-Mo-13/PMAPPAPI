@@ -11,15 +11,13 @@ async def get_all_passwordwk(db: AsyncSession) -> List[Tuple[int, str, str, str,
         passwordwk_model.no,
         passwordwk_model.pwd,
         passwordwk_model.app,
-        passwordwk_model.email_address,
         passwordwk_model.other_info,
-        passwordwk_model.firestoreregflg,
         passwordwk_model.registered_date
     ))
     return result.all()
 
-async def create_passwordwk(db: AsyncSession, pwd: str, app: str, email_address: str, other_info: str, firestoreregflg: str) -> Any:
-    result = await db.execute(insert(passwordwk_model).values(pwd=pwd, app=app, email_address=email_address, other_info=other_info, firestoreregflg=firestoreregflg, registered_date=datetime.datetime.now()))
+async def create_passwordwk(db: AsyncSession, pwd: str, app: str, other_info: str) -> Any:
+    result = await db.execute(insert(passwordwk_model).values(pwd=pwd, app=app, other_info=other_info, registered_date=datetime.datetime.now()))
     await db.commit()
     return result
 
