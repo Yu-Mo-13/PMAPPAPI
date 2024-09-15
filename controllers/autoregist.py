@@ -4,9 +4,10 @@ from sqlalchemy import select, insert, delete
 from sqlalchemy.engine import Result
 from sqlalchemy.ext.asyncio import AsyncSession
 from models.autoregist import Autoregist as autoregist_model
+import uuid
 import datetime
 
-async def get_all_autoregist(db: AsyncSession) -> List[Tuple[int, str, str, str, str, str, str]]:
+async def get_all_autoregist(db: AsyncSession) -> List[Tuple[uuid.UUID, str, str, str, str, str, str]]:
     result: Result = await db.execute(select(
         autoregist_model.uuid,
         autoregist_model.pwd,
@@ -17,7 +18,7 @@ async def get_all_autoregist(db: AsyncSession) -> List[Tuple[int, str, str, str,
     return result.all()
 
 # UUIDをキーにして自動登録データを取得
-async def get_autoregist_by_uuid(db: AsyncSession, uuid: str) -> Any:
+async def get_autoregist_by_uuid(db: AsyncSession, uuid: uuid.UUID) -> Any:
     result = await db.execute(select(autoregist_model).where(autoregist_model.uuid == uuid))
     return result.first()
 
@@ -27,7 +28,7 @@ async def create_autoregist(db: AsyncSession, pwd: str, app: str, other_info: st
     return result
 
 # UUIDをキーにして自動登録データを削除
-async def delete_autoregist_by_uuid(db: AsyncSession, uuid: str) -> Any:
+async def delete_autoregist_by_uuid(db: AsyncSession, uuid: uuid.UUID) -> Any:
     result = await db.execute(delete(autoregist_model).where(autoregist_model.uuid == uuid))
     await db.commit()
     return result
