@@ -5,6 +5,7 @@ from sqlalchemy.engine import Result
 from sqlalchemy.ext.asyncio import AsyncSession
 from models.password import Password as password_model
 from models.application import Application as application_model
+from controllers.generate import Generate
 from config import get_config
 import datetime
 
@@ -49,6 +50,14 @@ async def get_notice_passwordlist(db: AsyncSession) -> List[Tuple[str, str, date
         select(application_model.name).filter(application_model.noticeclas == get_config('NOTICEFLG'))
     )).group_by(password_model.app, password_model.other_info))
     return result.all()
+
+# 2024/09/16 add nextgen
+# ランダム文字列を作成
+def create_random_string(markclas: str, length: str) -> str:
+    if markclas == '1':
+        return Generate(int(length)).generate()
+    else:
+        return Generate(int(length)).generate_without_symbol()
 
 # issue10 データ連動
 # no, pwd, app, email_address, other_info, firestoreregflgを登録する

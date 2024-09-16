@@ -7,7 +7,7 @@ from models.autoregist import Autoregist as autoregist_model
 import uuid
 import datetime
 
-async def get_all_autoregist(db: AsyncSession) -> List[Tuple[uuid.UUID, str, str, str, str, str, str]]:
+async def get_all_autoregist(db: AsyncSession) -> List[Tuple[uuid.UUID, str, str, str, str]]:
     result: Result = await db.execute(select(
         autoregist_model.uuid,
         autoregist_model.pwd,
@@ -18,8 +18,14 @@ async def get_all_autoregist(db: AsyncSession) -> List[Tuple[uuid.UUID, str, str
     return result.all()
 
 # UUIDをキーにして自動登録データを取得
-async def get_autoregist_by_uuid(db: AsyncSession, uuid: uuid.UUID) -> Any:
-    result = await db.execute(select(autoregist_model).where(autoregist_model.uuid == uuid))
+async def get_autoregist_by_uuid(db: AsyncSession, uuid: uuid.UUID) -> List[Tuple[uuid.UUID, str, str, str, str]]:
+    result: Result = await db.execute(select(
+        autoregist_model.uuid,
+        autoregist_model.pwd,
+        autoregist_model.app,
+        autoregist_model.other_info,
+        autoregist_model.registered_date
+    ).filter(autoregist_model.uuid == uuid))
     return result.first()
 
 async def create_autoregist(db: AsyncSession, pwd: str, app: str, other_info: str) -> Any:
