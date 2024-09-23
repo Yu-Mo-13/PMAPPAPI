@@ -1,5 +1,6 @@
 import math
 import random
+from controllers.encryption import Encryption
 
 class Generate:
   def __init__(self, length):
@@ -11,6 +12,8 @@ class Generate:
     self.letter = ("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z")
     self.capital = ("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z")
     self.mark = ("@", "%", ":", "!", "-", "_")
+    # 暗号化クラス
+    self.encryption = Encryption()
 
   def generate(self):
     # 初期値
@@ -34,7 +37,7 @@ class Generate:
       elif param == 4:
           password += self.mark[math.floor(random.random() * len(self.mark))]
 
-    return password
+    return self.encryption.encrypt(password)
 
   def generate_without_symbol(self):
     # 初期値
@@ -55,4 +58,4 @@ class Generate:
       elif param == 3:
           password += self.capital[math.floor(random.random() * len(self.capital))]
 
-    return password
+    return self.encryption.encrypt(password)
