@@ -7,6 +7,7 @@ from models.otpctl import OtpCtl as otpctl_model
 from datetime import datetime
 
 async def get_all_otpctl(db: AsyncSession) -> List[Tuple[str, str, str, str, datetime, datetime]]:
+    # otpctl_modelの昇順でデータを取得
     result: Result = await db.execute(select(
         otpctl_model.cd,
         otpctl_model.name,
@@ -14,8 +15,8 @@ async def get_all_otpctl(db: AsyncSession) -> List[Tuple[str, str, str, str, dat
         otpctl_model.remarks,
         otpctl_model.created_at,
         otpctl_model.updated_at
-    ))
-    return result.all()
+    ).order_by(otpctl_model.cd))
+    return result.fetchall()
 
 async def get_otpctl_value_by_cd(db: AsyncSession, cd: str) -> List[Tuple[str, str]]:
     result: Result = await db.execute(select(
