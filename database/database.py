@@ -6,7 +6,14 @@ from config import get_config
 # SQLALCHEMY_DATABASE_URLでPOSTGRESの接続先を指定
 SQLALCHEMY_DATABASE_URL = "postgresql+asyncpg://" + get_config("PSUSER") + ":" + get_config("PSPASSWORD") + "@" + get_config("PSHOST") + ":" + get_config("PSPORT") + "/" + get_config("PSNAME")
 
-async_engine = create_async_engine(SQLALCHEMY_DATABASE_URL, echo=True)
+# async_engine = create_async_engine(SQLALCHEMY_DATABASE_URL, echo=True)
+async_engine = create_async_engine(
+    SQLALCHEMY_DATABASE_URL,
+    pool_size=5,
+    max_overflow=10,
+    pool_timeout=30,
+    pool_recycle=1800,
+)
 async_session = sessionmaker(autocommit=False, autoflush=False, bind=async_engine, class_=AsyncSession)
 Base = declarative_base()
 
