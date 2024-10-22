@@ -13,6 +13,7 @@ async def get_all_application(db: AsyncSession) -> List[Tuple[int, str, str, str
         application_model.no,
         application_model.name,
         application_model.accountclas,
+        application_model.noticeclas,
         application_model.markclas,
         application_model.autosize,
         application_model.registered_date
@@ -25,6 +26,7 @@ async def get_application(db: AsyncSession, app: str) -> List[Tuple[int, str, st
         application_model.no,
         application_model.name,
         application_model.accountclas,
+        application_model.noticeclas,
         application_model.markclas,
         application_model.autosize,
         application_model.registered_date
@@ -36,6 +38,7 @@ async def get_accountclass(db: AsyncSession, app: str) -> List[Tuple[int, str, s
         application_model.no,
         application_model.name,
         application_model.accountclas,
+        application_model.noticeclas,
         application_model.markclas,
         application_model.autosize,
         application_model.registered_date
