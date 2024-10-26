@@ -29,10 +29,10 @@ async def get_notice_app_list(db: AsyncSession = Depends(get_db)):
 
 # issue10 データ連動
 @router.post("/application/create", response_model=application_schema.Application)
-async def create_application(name: str, accountclass: str, noticeclass: str, markclas: str, autosize: str, db: AsyncSession = Depends(get_db)):
-    return await application_controller.create_application(db, name, accountclass, noticeclass, markclas, autosize)
+async def create_application(name: str, accountclass: str, noticeclass: str, markclass: str, autosize: str, db: AsyncSession = Depends(get_db)):
+    return await application_controller.create_application(db, name, accountclass, noticeclass, markclass, autosize)
 
 # issue18 デスクトップアプリ版API移行
 @router.post("/application/update", response_model=application_schema.Application)
-async def update_application(no: int, accountclass: str, noticeclass: str, markclas: str, autosize: str, db: AsyncSession = Depends(get_db)):
-    return await application_controller.update_application(db, no, accountclass, noticeclass, markclas, autosize)
+async def update_application(no: int, accountclass: str, noticeclass: str, markclass: str, autosize: str, db: AsyncSession = Depends(get_db)):
+    return await application_controller.update_application(db, no, accountclass, noticeclass, markclass, autosize)
