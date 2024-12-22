@@ -15,8 +15,8 @@ async def get_all_passwordwk(db: AsyncSession = Depends(get_db)):
     return await passwordwk_controller.get_all_passwordwk(db)
 
 @router.post("/passwordwk/create", response_model=passwordwk_schema.PasswordWk)
-async def create_password(pwd: str, app: str, email_address: str, other_info: str, firestoreregflg: str, db: AsyncSession = Depends(get_db)):
-    return await passwordwk_controller.create_passwordwk(db, pwd, app, email_address, other_info, firestoreregflg)
+async def create_password(pwd: str, app: str, other_info: str, db: AsyncSession = Depends(get_db)):
+    return await passwordwk_controller.create_passwordwk(db, pwd, app, other_info)
 
 # 未登録パスワードのデータを全て削除する
 @router.delete("/passwordwk/delete/all", response_model=passwordwk_schema.PasswordWk)
