@@ -48,7 +48,7 @@ def test_get_otpctl_value_by_cd(setup_test_data):
     assert response.status_code == 200
     assert response.json()["cd"] == "01"
 
-def test_update_otpctl_by_cd(db_session: AsyncSession):
+async def test_update_otpctl_by_cd(db_session: AsyncSession):
     response = client.put("/otpctl/cd=01", json={"value": "new_value"})
     assert response.status_code == 200
     assert response.json()["value"] == "new_value"

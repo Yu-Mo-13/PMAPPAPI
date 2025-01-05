@@ -48,7 +48,7 @@ def test_get_autoregist_by_uuid(setup_test_data):
     assert response.status_code == 200
     assert response.json()["app"] == "test_app"
 
-def test_create_autoregist(db_session: AsyncSession):
+async def test_create_autoregist(db_session: AsyncSession):
     response = client.post("/autoregist/create", params={"pwd": "new_pwd", "app": "new_app", "other_info": "new_info"})
     assert response.status_code == 200
     assert response.json()["app"] == "new_app"
@@ -57,7 +57,7 @@ def test_create_autoregist(db_session: AsyncSession):
     await db_session.execute(select(autoregist_model).filter(autoregist_model.app == "new_app").delete())
     await db_session.commit()
 
-def test_delete_autoregist(db_session: AsyncSession):
+async def test_delete_autoregist(db_session: AsyncSession):
     # Create autoregist to delete
     new_autoregist = autoregist_model(
         uuid=uuid.uuid4(),

@@ -41,7 +41,7 @@ def test_get_all_passwordwk(setup_test_data):
     assert response.status_code == 200
     assert len(response.json()) > 0
 
-def test_create_passwordwk(db_session: AsyncSession):
+async def test_create_passwordwk(db_session: AsyncSession):
     response = client.post("/passwordwk/create", json={"pwd": "new_passwordwk", "app": "new_appwk", "other_info": "new_infowk"})
     assert response.status_code == 200
     assert response.json()["app"] == "new_appwk"

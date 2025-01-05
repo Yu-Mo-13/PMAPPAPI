@@ -52,7 +52,7 @@ def test_get_account(setup_test_data):
     assert response.status_code == 200
     assert response.json()["account"] == "test_account"
 
-def test_create_account(db_session: AsyncSession):
+async def test_create_account(db_session: AsyncSession):
     response = client.post("/account/create/app=new_app/account=new_account")
     assert response.status_code == 200
     assert response.json()["account"] == "new_account"
@@ -61,7 +61,7 @@ def test_create_account(db_session: AsyncSession):
     await db_session.execute(select(account_model).filter(account_model.account == "new_account").filter(account_model.app == "new_app").delete())
     await db_session.commit()
 
-def test_delete_account(db_session: AsyncSession):
+async def test_delete_account(db_session: AsyncSession):
     # Create account to delete
     new_account = account_model(
         account="delete_account",
