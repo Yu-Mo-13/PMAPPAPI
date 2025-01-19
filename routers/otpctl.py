@@ -2,7 +2,6 @@ from typing import List
 from fastapi import APIRouter, Depends
 from database.database import get_db
 from sqlalchemy.ext.asyncio import AsyncSession
-from config import get_config
 import datetime
 
 import schema.otpctl as otpctl_schema
