@@ -16,6 +16,11 @@ PMAPPで使用するAPIです。
 uvicorn main:app --reload
 ```
 
+# Alembic初期化
+```
+alembic init alembic
+```
+
 # マイグレーションファイル自動生成
 ```
 alembic revision --autogenerate -m "create xxx table"
