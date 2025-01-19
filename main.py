@@ -5,6 +5,7 @@ from routers.account import router as account_router
 from routers.passwordwk import router as passwordwk_router
 from routers.autoregist import router as autoregist_router
 from routers.otpctl import router as otpctl_router
+from routers.menu import router as menu_router
 from starlette.middleware.cors import CORSMiddleware
 
 app = FastAPI()
@@ -27,3 +28,4 @@ app.include_router(account_router)
 app.include_router(passwordwk_router)
 app.include_router(autoregist_router)
 app.include_router(otpctl_router)
+app.include_router(menu_router)
