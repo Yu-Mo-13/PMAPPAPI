@@ -1,6 +1,7 @@
 import pytest
 from sqlalchemy.ext.asyncio import AsyncSession
 from database.database import async_session
+from sqlalchemy.future import select
 from models.account import Account as account_model
 from models.application import Application as application_model
 from models.autoregist import Autoregist as autoregist_model
