@@ -1,7 +1,7 @@
 import pytest
 from fastapi.testclient import TestClient
 from main import app
-from database.database import get_db, async_session
+from database.database import async_session
 from models.passwordwk import PasswordWk as passwordwk_model
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
@@ -47,8 +47,8 @@ def test_create_passwordwk(db_session: AsyncSession):
     assert response.json()["app"] == "new_appwk"
 
     # Cleanup
-    await db_session.execute(select(passwordwk_model).filter(passwordwk_model.app == "new_appwk").filter(passwordwk_model.other_info == "new_infowk").delete())
-    await db_session.commit()
+    db_session.execute(select(passwordwk_model).filter(passwordwk_model.app == "new_appwk").filter(passwordwk_model.other_info == "new_infowk").delete())
+    db_session.commit()
 
 def test_delete_passwordwk(setup_test_data):
     response = client.delete("/passwordwk/delete", json={"app": "test_appwk", "other_info": "test_infowk"})

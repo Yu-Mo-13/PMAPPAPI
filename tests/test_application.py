@@ -1,7 +1,7 @@
 import pytest
 from fastapi.testclient import TestClient
 from main import app
-from database.database import get_db, async_session
+from database.database import async_session
 from models.application import Application as application_model
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
@@ -64,8 +64,8 @@ def test_create_application(db_session: AsyncSession):
     assert response.json()["name"] == "new_app"
 
     # Cleanup
-    await db_session.execute(select(application_model).filter(application_model.name == "new_app").delete())
-    await db_session.commit()
+    db_session.execute(select(application_model).filter(application_model.name == "new_app").delete())
+    db_session.commit()
 
 def test_update_application(db_session: AsyncSession):
     # Create application to update
@@ -78,13 +78,13 @@ def test_update_application(db_session: AsyncSession):
         registered_date=datetime.now()
     )
     db_session.add(new_application)
-    await db_session.commit()
+    db_session.commit()
 
     response = client.post("/application/update", params={"no": new_application.no, "accountclass": "D", "noticeclass": "1", "markclass": "P", "autosize": "Y"})
     assert response.status_code == 200
 
     # Verify update
-    result = await db_session.execute(select(application_model).filter(application_model.no == new_application.no))
+    result = db_session.execute(select(application_model).filter(application_model.no == new_application.no))
     updated_application = result.first()
     assert updated_application.accountclas == "D"
     assert updated_application.noticeclas == "1"
@@ -92,5 +92,5 @@ def test_update_application(db_session: AsyncSession):
     assert updated_application.autosize == "Y"
 
     # Cleanup
-    await db_session.execute(select(application_model).filter(application_model.no == new_application.no).delete())
-    await db_session.commit()
+    db_session.execute(select(application_model).filter(application_model.no == new_application.no).delete())
+    db_session.commit()

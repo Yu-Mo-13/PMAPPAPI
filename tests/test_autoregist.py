@@ -1,7 +1,7 @@
 import pytest
 from fastapi.testclient import TestClient
 from main import app
-from database.database import get_db, async_session
+from database.database import async_session
 from models.autoregist import Autoregist as autoregist_model
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
@@ -54,8 +54,8 @@ def test_create_autoregist(db_session: AsyncSession):
     assert response.json()["app"] == "new_app"
 
     # Cleanup
-    await db_session.execute(select(autoregist_model).filter(autoregist_model.app == "new_app").delete())
-    await db_session.commit()
+    db_session.execute(select(autoregist_model).filter(autoregist_model.app == "new_app").delete())
+    db_session.commit()
 
 def test_delete_autoregist(db_session: AsyncSession):
     # Create autoregist to delete
@@ -67,11 +67,11 @@ def test_delete_autoregist(db_session: AsyncSession):
         registered_date=datetime.now()
     )
     db_session.add(new_autoregist)
-    await db_session.commit()
+    db_session.commit()
 
     response = client.post(f"/autoregist/delete/uuid={new_autoregist.uuid}")
     assert response.status_code == 200
 
     # Verify deletion
-    result = await db_session.execute(select(autoregist_model).filter(autoregist_model.uuid == new_autoregist.uuid))
+    result = db_session.execute(select(autoregist_model).filter(autoregist_model.uuid == new_autoregist.uuid))
     assert result.first() is None

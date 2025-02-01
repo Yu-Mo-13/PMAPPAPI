@@ -1,7 +1,7 @@
 import pytest
 from fastapi.testclient import TestClient
 from main import app
-from database.database import get_db, async_session
+from database.database import async_session
 from models.otpctl import OtpCtl as otpctl_model
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
@@ -54,5 +54,5 @@ def test_update_otpctl_by_cd(db_session: AsyncSession):
     assert response.json()["value"] == "new_value"
 
     # Cleanup
-    await db_session.execute(select(otpctl_model).filter(otpctl_model.cd == "01").update({"value": "test_value"}))
-    await db_session.commit()
+    db_session.execute(select(otpctl_model).filter(otpctl_model.cd == "01").update({"value": "test_value"}))
+    db_session.commit()
