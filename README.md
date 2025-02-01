@@ -12,7 +12,9 @@ PMAPPで使用するAPIです。
 ・datetime
 
 # アプリケーション起動
+```
 uvicorn main:app --reload
+```
 
 # Unit Test Setup
 ## Install necessary libraries
@@ -35,4 +37,24 @@ pytest
 ## Run Specific Unit Test File
 ```bash
 pytest tests/test_account.py
+```
+
+# Alembic初期化
+```
+alembic init alembic
+```
+
+# マイグレーションファイル自動生成
+```
+alembic revision --autogenerate -m "create xxx table"
+```
+
+# マイグレーションファイル実行
+```
+alembic upgrade head
+```
+
+# マイグレーションファイル実行(既にテーブルが存在する場合)
+```
+alembic revision -m "create xxx table"
 ```
