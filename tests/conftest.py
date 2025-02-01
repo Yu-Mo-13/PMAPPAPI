@@ -9,6 +9,7 @@ from models.password import Password as password_model
 from models.passwordwk import PasswordWk as passwordwk_model
 from datetime import datetime
 import uuid
+from sqlalchemy.future import select
 
 @pytest.fixture(scope="module")
 async def db_session():
