@@ -26,11 +26,11 @@ jobs:
         echo "ISDELETE=1" >> $GITHUB_ENV
         echo "NOTICEFLG=1" >> $GITHUB_ENV
         echo "ISADMIN=1" >> $GITHUB_ENV
-        echo "PSHOST=ep-polished-glade-a1wkqg2n.ap-southeast-1.aws.neon.tech" >> $GITHUB_ENV
-        echo "PSUSER=pmapp_owner" >> $GITHUB_ENV
-        echo "PSPORT=5432" >> $GITHUB_ENV
-        echo "PSNAME=pmapp" >> $GITHUB_ENV
-        echo "PSPASSWORD=2ijWzP6CSBqZ" >> $GITHUB_ENV
+        echo "PSHOST=${{ secrets.PSHOST }}" >> $GITHUB_ENV
+        echo "PSUSER=${{ secrets.PSUSER }}" >> $GITHUB_ENV
+        echo "PSPORT=${{ secrets.PSPORT }}" >> $GITHUB_ENV
+        echo "PSNAME=${{ secrets.PSNAME }}" >> $GITHUB_ENV
+        echo "PSPASSWORD=${{ secrets.PSPASSWORD }}" >> $GITHUB_ENV
         echo "PYTHONPATH=$(pwd)" >> $GITHUB_ENV
 
     - name: Run tests
