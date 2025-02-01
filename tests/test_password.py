@@ -52,7 +52,7 @@ def test_get_password(setup_test_data):
     assert response.json()["app"] == "test_app"
     assert response.json()["other_info"] == "test_info"
 
-async def test_create_password(db_session: AsyncSession):
+def test_create_password(db_session: AsyncSession):
     response = client.post("/password/create", json={"pwd": "new_password", "app": "new_app", "other_info": "new_info"})
     assert response.status_code == 200
     assert response.json()["app"] == "new_app"

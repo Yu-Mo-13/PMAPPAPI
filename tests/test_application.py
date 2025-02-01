@@ -58,7 +58,7 @@ def test_get_notice_app_list(setup_test_data):
     assert response.status_code == 200
     assert len(response.json()) > 0
 
-async def test_create_application(db_session: AsyncSession):
+def test_create_application(db_session: AsyncSession):
     response = client.post("/application/create", params={"name": "new_app", "accountclass": "B", "noticeclass": "0", "markclass": "N", "autosize": "N"})
     assert response.status_code == 200
     assert response.json()["name"] == "new_app"
@@ -67,7 +67,7 @@ async def test_create_application(db_session: AsyncSession):
     await db_session.execute(select(application_model).filter(application_model.name == "new_app").delete())
     await db_session.commit()
 
-async def test_update_application(db_session: AsyncSession):
+def test_update_application(db_session: AsyncSession):
     # Create application to update
     new_application = application_model(
         name="update_app",
