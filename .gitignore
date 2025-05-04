@@ -1,2 +1,4 @@
 .bashrc*
 execUvicorn.sh
+__pycache__/
+*.pyc
