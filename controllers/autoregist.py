@@ -38,3 +38,8 @@ async def delete_autoregist_by_uuid(db: AsyncSession, uuid: uuid.UUID) -> Any:
     result = await db.execute(delete(autoregist_model).where(autoregist_model.uuid == uuid))
     await db.commit()
     return result
+
+async def delete_all_autoregist(db: AsyncSession) -> Any:
+    result = await db.execute(delete(autoregist_model))
+    await db.commit()
+    return result
